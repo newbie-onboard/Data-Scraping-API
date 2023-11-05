@@ -1,0 +1,14 @@
+import urllib.request as request
+import json 
+import contextlib
+
+def cvrapi(cvr, country='dk'):
+  request_a = request.Request(
+    url='http://cvrapi.dk/api?search=%d&country=%s' % (cvr, country),
+    headers={
+      'User-Agent': 'mit projekt'})
+  with contextlib.closing(request.urlopen(request_a)) as response:
+    return json.loads(response.read())
+
+# test cvrapi
+print(cvrapi(10150817))
